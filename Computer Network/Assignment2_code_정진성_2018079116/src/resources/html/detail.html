@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Ikea</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="">
+    <style>
+    </style>
+    <script>
+        var resource = window.location.href.split('/');
+        resource = resource[resource.length - 1];
+
+        fetch("./furniture.json")
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                var json = data["Furniture"];
+                for ( var i = 0; i < 3 ;i++) {
+                    if (json[i]["Name"].toLowerCase() === resource) {
+                        var obj = json[i];
+                        document.getElementById("title").innerHTML = obj["Name"];
+                        document.getElementById("price").innerHTML = obj["Price"];
+                        document.getElementById("description").innerHTML = obj["Description"];
+                        document.getElementById("img").src = obj["ImageLocation"];
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.error("데이터를 로드하는 동안 오류가 발생했습니다.", error);
+            });
+    </script>
+</head>
+<body>
+
+<div class="">
+    <h1 id="title">OBJECT TITLE</h1>
+    <h3 id = "price">OBJECT PRICE</h3>
+    <p id = "description">OBJECT DESCRIPTION</p>
+
+    <img id = "img" border="0" alt="W3Schools" src="" width="200" height="200">
+</div>
+</body>
+</html>
